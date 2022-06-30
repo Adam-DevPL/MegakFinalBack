@@ -4,6 +4,7 @@ import 'express-async-errors';
 import {handleError} from "./utlils/errors";
 import rateLimit from 'express-rate-limit';
 import {projectRouter} from "./routers/project.router";
+import {taskRouter} from "./routers/task.router";
 
 
 const app = express();
@@ -18,6 +19,7 @@ app.use(rateLimit({
 }));
 
 app.use("/project", projectRouter);
+app.use("/task", taskRouter);
 
 app.use(handleError);
 

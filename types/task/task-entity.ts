@@ -11,4 +11,8 @@ export interface NewTaskEntity extends Omit<TaskEntity, "id"> {
     id?: string;
 }
 
+export interface SetProjectForTaskReq {
+    projectId: string;
+}
+
 export type TaskRecordResults = [TaskEntity[], FieldPacket[]];

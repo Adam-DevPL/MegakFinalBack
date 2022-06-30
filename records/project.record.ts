@@ -35,9 +35,9 @@ export class ProjectRecord implements ProjectEntity{
             this.id = uuid();
         }
 
-        await pool.execute("INSERT INTO `projects`(`id`, `projectName`) VALUES(:id, :name)", {
+        await pool.execute("INSERT INTO `projects`(`id`, `projectName`) VALUES(:id, :projectName)", {
             id: this.id,
-            name: this.projectName,
+            projectName: this.projectName,
         });
 
         return this.id;
