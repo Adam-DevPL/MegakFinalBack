@@ -29,4 +29,10 @@ describe("testing getting data from database", () => {
 
         expect(project).toBeNull();
     })
+    it("should return all entries from database", async () => {
+        const projects = await ProjectRecord.getAll();
+
+        expect(projects).toBeDefined();
+        expect(projects.length).toBe(2);
+    })
 })

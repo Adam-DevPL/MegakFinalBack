@@ -1,6 +1,7 @@
 import {NewProjectEntity, ProjectEntity, ProjectRecordResults} from "../types";
 import { ValidationError } from "../utlils/errors";
 import {pool} from "../utlils/db";
+import {v4 as uuid} from "uuid";
 
 export class ProjectRecord implements ProjectEntity{
     id: string;
@@ -21,5 +22,30 @@ export class ProjectRecord implements ProjectEntity{
         }) as ProjectRecordResults;
 
         return results.length === 0 ? null : new ProjectRecord(results[0]);
+    }
+
+    static async getAll(): Promise<ProjectRecord[]> {
+        const [results] = await pool.execute("SELECT * FROM `projects`") as ProjectRecordResults;
+
+        return results.length === 0 ? [] : results.map(obj => new ProjectRecord(obj));
+    }
+
+    async insert(): Promise<string> {
+        if (!this.id) {
+            this.id = uuid();
+        }
+
+        await pool.execute("INSERT INTO `projects`(`id`, `projectName`) VALUES(:id, :name)", {
+            id: this.id,
+            name: this.projectName,
+        });
+
+        return this.id;
+    }
+
+    async delete(): Promise<void> {
+        await pool.execute("DELETE FROM `projects` WHERE `id` = :id", {
+            id: this.id,
+        })
     }
 }
