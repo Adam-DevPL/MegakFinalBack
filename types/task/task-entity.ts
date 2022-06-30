@@ -1,3 +1,5 @@
+import {FieldPacket} from "mysql2";
+
 export interface TaskEntity {
     id: string;
     taskName: string;
@@ -8,3 +10,5 @@ export interface TaskEntity {
 export interface NewTaskEntity extends Omit<TaskEntity, "id"> {
     id?: string;
 }
+
+export type TaskRecordResults = [TaskEntity[], FieldPacket[]];
