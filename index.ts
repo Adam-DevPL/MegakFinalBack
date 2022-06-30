@@ -12,9 +12,9 @@ app.use(cors({
 
 app.use(json());
 
-app.get("/", async (req, res) => {
-    throw new ValidationError("Fuuuuuuck!!!");
-})
+// app.get("/", async (req, res) => {
+//     throw new ValidationError("Fuuuuuuck!!!");
+// })
 
 app.use(handleError);
 
