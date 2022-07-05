@@ -42,7 +42,7 @@ export class TaskRecord implements TaskEntity {
             this.id = uuid();
         }
 
-        await pool.execute("INSERT INTO `tasks`(`id`, `taskName`, `completed`, `projectId`) VALUES(:id, :name)", {
+        await pool.execute("INSERT INTO `tasks`(`id`, `taskName`, `completed`, `projectId`) VALUES(:id, :taskName, :completed, (SELECT `id` FROM `projects` WHERE id = :projectId))", {
             id: this.id,
             taskName: this.taskName,
             completed: this.completed,
@@ -53,7 +53,7 @@ export class TaskRecord implements TaskEntity {
     }
 
     async update(): Promise<void> {
-        await pool.execute("UPDATE `tasks` SET `taskName` = :name, `completed` = :completed `projectId` = :projectId WHERE `id` = :id", {
+        await pool.execute("UPDATE `tasks` SET `taskName` = :taskName, `completed` = :completed, `projectId` = :projectId WHERE `id` = :id", {
             id: this.id,
             taskName: this.taskName,
             completed: this.completed,
