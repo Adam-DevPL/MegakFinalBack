@@ -8,6 +8,8 @@ export class TaskRecord implements TaskEntity {
     id: string;
     projectId: string;
     taskName: string;
+    createdAt: Date | undefined;
+
 
     constructor(obj: NewTaskEntity) {
         // console.log(obj.taskName);
@@ -19,14 +21,13 @@ export class TaskRecord implements TaskEntity {
         this.taskName = obj.taskName;
         this.projectId = obj.projectId;
         this.completed = obj.completed;
+        this.createdAt = obj.createdAt;
     }
 
     static async getOne(id: string): Promise<TaskRecord> {
         const [results] = await pool.execute("SELECT * FROM `tasks` WHERE id = :id", {
             id,
         }) as TaskRecordResults;
-
-        console.log(results[0]);
 
         return results.length === 0 ? null : new TaskRecord(results[0]);
     }

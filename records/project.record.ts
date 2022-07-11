@@ -6,6 +6,7 @@ import {v4 as uuid} from "uuid";
 export class ProjectRecord implements ProjectEntity{
     id: string;
     projectName: string;
+    createdAt: Date | undefined;
 
     constructor(obj: NewProjectEntity) {
         if (!obj.projectName || obj.projectName.length > 30) {
@@ -14,6 +15,7 @@ export class ProjectRecord implements ProjectEntity{
 
         this.id = obj.id;
         this.projectName = obj.projectName;
+        this.createdAt = obj.createdAt;
     }
 
     static async getOne(id: string): Promise<ProjectRecord> {

@@ -5,10 +5,12 @@ export interface TaskEntity {
     taskName: string;
     completed: boolean;
     projectId: string;
+    createdAt: Date | undefined;
 }
 
-export interface NewTaskEntity extends Omit<TaskEntity, "id"> {
+export interface NewTaskEntity extends Omit<TaskEntity, "id" | "createdAt"> {
     id?: string;
+    createdAt?: Date | undefined;
 }
 
 
