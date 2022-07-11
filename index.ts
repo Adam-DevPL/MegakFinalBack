@@ -1,4 +1,4 @@
-import express, {json} from "express";
+import express, {json, Router} from "express";
 import cors from "cors";
 import 'express-async-errors';
 import {handleError} from "./utlils/errors";
@@ -18,8 +18,12 @@ app.use(rateLimit({
     max: 100,
 }));
 
-app.use("/project", projectRouter);
-app.use("/task", taskRouter);
+const router = Router();
+
+router.use("/project", projectRouter);
+router.use("/task", taskRouter);
+
+app.use('/api', router);
 
 app.use(handleError);
 
